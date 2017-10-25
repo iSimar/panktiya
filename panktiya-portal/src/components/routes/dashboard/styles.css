@@ -45,6 +45,8 @@
 .cardShabad {
     padding: 30px;
     width: 80%;
+    height: 85%;
+    overflow: scroll;
     /* margin-top: 100px;
     margin-bottom: 50px; */
 }
