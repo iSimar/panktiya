@@ -1,8 +1,10 @@
 {
   "name": "panktiya-portal",
+  "homepage": "https://isimar.github.io/panktiya",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "gh-pages": "^1.0.0",
     "material-ui": "^1.0.0-beta.18",
     "react": "^16.0.0",
     "react-cookie": "^2.1.1",
@@ -14,6 +16,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "deploy" : "yarn build&&gh-pages -d build"
   }
 }
