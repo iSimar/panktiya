@@ -1,0 +1,42 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 20px;
+    padding-top: 50px;
+    width: 40%;
+}
+
+.cardLoading{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 20px;
+    width: 40%;
+}
+
+.step {
+    margin-bottom: 30px;
+    width: 100%;
+}
+
+.urlField { 
+    width: 100%;
+}
+
+.logoutContainer {
+    margin-top: 50px;
+}
+
+.logoutButton {
+    margin-left: 10px;
+}
