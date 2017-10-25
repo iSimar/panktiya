@@ -5,6 +5,8 @@ import { CircularProgress } from 'material-ui/Progress';
 import Button from 'material-ui/Button';
 import Card from 'material-ui/Card';
 import TextField from 'material-ui/TextField';
+import axios from 'axios';
+import AddIcon from 'material-ui-icons/ArrowBack';
 
 class Dashboard extends Component {
     constructor(props){
@@ -27,9 +29,23 @@ class Dashboard extends Component {
 
     pasteURL(event){
         this.setState({ loadingShabad: true });
-        const url = event.target.value;
+        let url = event.target.value;
         if (this.validURL(url)) {
+            url = url.replace("http://beta.igurbani.com/shabad/", "");
+            let id = url;
 
+            if(url.indexOf('?')){
+                let id = url.substr(0, url.indexOf('?'));
+            }
+            
+            axios.get('http://beta.igurbani.com/api/shabads/'+id)
+            .then((function (response) {
+                console.log(response.data);
+                this.setState({ 
+                    loadingShabad: false, 
+                    shabad: response.data 
+                });
+            }).bind(this));
         }
         else{
             this.setState({ loadingShabad: false });
@@ -86,20 +102,42 @@ class Dashboard extends Component {
                         <CircularProgress />
                     </Card>
                 );
-            };
+            }
+            
+            let logoutContent = (
+                <div className="logoutContainer">
+                    guest@guest.com
+                    <Button color="primary" 
+                            className="logoutButton"
+                            onClick={() => { this.props.history.push('/'); }}>
+                    Logout
+                    </Button>
+                </div>
+            );
+
+            if(!this.state.loadingShabad && this.state.shabad){
+                cardContent = (
+                    <Card className="cardShabad">
+                        <Button fab 
+                                color="primary" 
+                                aria-label="add"
+                                onClick={() => { this.setState({ shabad: false }) }}>
+                            <AddIcon />
+                        </Button>
+                        <div className="shabadContainer">
+                            {this.state.shabad.map(function(verseObj, index){
+                                return <div key={ index }>{verseObj.Verse.gurmukhi_unicode} </div>;
+                            })}
+                        </div>
+                    </Card>
+                );
+                logoutContent = null;
+            }
 
             content = (
                 <div className="container">
-                    
                     {cardContent}
-                    <div className="logoutContainer">
-                        guest@guest.com
-                        <Button color="primary" 
-                                className="logoutButton"
-                                onClick={() => { this.props.history.push('/'); }}>
-                        Logout
-                        </Button>
-                    </div>
+                    {logoutContent}
                 </div>
             );
         }
